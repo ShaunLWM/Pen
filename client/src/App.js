@@ -2,8 +2,10 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import CollapsedPost from "./components/CollapsedPost";
+import ExpandedPost from "./components/ExpandedPost";
+import Header from "./components/Header";
 import PostsLoader from "./lib/PostsLoader";
 
 function App() {
@@ -11,17 +13,16 @@ function App() {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
-  const sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
   useEffect(() => {
     async function getPosts() {
       setError(false);
       try {
-        let posts = await axios.get("https://jsonplaceholder.typicode.com/posts");
-        await sleep(5000);
-        console.log(posts);
-        setPosts(posts.data);
+        let results = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts"
+        );
+
+        // await sleep(5000);
+        setPosts(results.data);
       } catch (error) {
         setError(true);
       }
@@ -33,26 +34,39 @@ function App() {
   }, []);
 
   return (
-    <Router>
-
+    <>
       <CssBaseline />
-      <header></header>
+      <Header />
       <div id="about"></div>
-      <Container maxWidth="sm">
-        {isLoading ? <PostsLoader /> :
-          posts.map(post => {
-            return (
-              <>
-                <Link to={`/to/${post.id}`}>
-                  <CollapsedPost title={post.title} />
-                </Link>
-              </>
-            )
-          })
-        }
-      </Container>
+      <Router>
+        <Container maxWidth="sm">
+          <Route>
+            <Switch>
+              <Route exact path="/">
+                {isLoading ? (
+                  <PostsLoader />
+                ) : (
+                    posts.map(post => {
+                      return (
+                        <>
+                          <Link to={`/id/${post.id}`} key={post.id}>
+                            <CollapsedPost {...post} />
+                          </Link>
+                        </>
+                      );
+                    })
+                  )}
+              </Route>
+              <Route path="/id/:postId" render={props =>
+                <ExpandedPost {...props} />
+              } />
+            </Switch>
+          </Route>
+
+        </Container>
+      </Router>
       <footer></footer>
-    </Router>
+    </>
   );
 }
 
