@@ -2,7 +2,7 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 import CollapsedPost from "./components/CollapsedPost";
 import ExpandedPost from "./components/ExpandedPost";
 import Header from "./components/Header";
@@ -38,33 +38,30 @@ function App() {
       <CssBaseline />
       <Header />
       <div id="about"></div>
-      <Router>
-        <Container maxWidth="sm">
-          <Route>
-            <Switch>
-              <Route exact path="/">
-                {isLoading ? (
-                  <PostsLoader />
-                ) : (
-                    posts.map(post => {
-                      return (
-                        <>
-                          <Link to={`/id/${post.id}`} key={post.id}>
-                            <CollapsedPost {...post} />
-                          </Link>
-                        </>
-                      );
-                    })
-                  )}
-              </Route>
-              <Route path="/id/:postId" render={props =>
-                <ExpandedPost {...props} />
-              } />
-            </Switch>
+      <Container maxWidth="sm">
+        <Switch>
+          <Route
+            path="/id/:postId"
+            render={props => <ExpandedPost {...props} />}
+          />
+          <Route exact path="/">
+            {isLoading ? (
+              <PostsLoader />
+            ) : (
+              posts.map(post => {
+                return (
+                  <div key={post.id}>
+                    <Link to={`/id/${post.id}`}>
+                      <CollapsedPost {...post} />
+                    </Link>
+                  </div>
+                );
+              })
+            )}
           </Route>
-
-        </Container>
-      </Router>
+          <Redirect from="*" to="/" />
+        </Switch>
+      </Container>
       <footer></footer>
     </>
   );
