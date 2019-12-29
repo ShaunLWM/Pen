@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function PostTitle() {
+export default function PostTitle({ id, title, shouldLink = true }) {
+    if (shouldLink) {
+        return (
+            <Link to={`/id/${id}`} style={{ textDecoration: 'none' }}> <h2 style={{ marginBottom: "0.4375rem" }}>{title}</h2></Link>
+        )
+    }
+
     return (
-        <Link to={`/id/${id}`} style={{ textDecoration: 'none' }}><h2 style={{ marginBottom: "0.4375rem" }}>{title}</h2></Link>
+        <h2 style={{ marginBottom: "0.4375rem" }}>{title}</h2>
     )
 }

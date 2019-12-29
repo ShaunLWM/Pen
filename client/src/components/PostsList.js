@@ -1,13 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import CustomContentLoader from "../lib/CustomContentLoader";
-import { setPosts } from "../store/PostReducer";
-import CollapsedPost from "./CollapsedPost";
-const mapDispatch = { setPosts };
+import React, { useEffect, useState, useContext } from "react";
 
-const PostsList = ({ setPosts }) => {
-  const [posts, setAllPosts] = useState([]);
+import CustomContentLoader from "../lib/CustomContentLoader";
+import CollapsedPost from "./CollapsedPost";
+import { store } from "../store";
+
+export default function PostsList() {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
@@ -20,7 +22,7 @@ const PostsList = ({ setPosts }) => {
         );
 
         setPosts(results.data);
-        setAllPosts(results.data)
+        dispatch({ type: "setPosts", data: results.data })
       } catch (error) {
         console.log(error);
         setError(true);
@@ -30,7 +32,7 @@ const PostsList = ({ setPosts }) => {
     }
 
     getPosts();
-  }, []);
+  }, [dispatch]);
 
   if (isError) return (<h1>Error loading post</h1>);
   if (isLoading) return (<CustomContentLoader />);
@@ -49,5 +51,3 @@ const PostsList = ({ setPosts }) => {
     </>
   );
 }
-
-export default connect(null, mapDispatch)(PostsList);

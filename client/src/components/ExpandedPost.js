@@ -1,9 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import CustomContentLoader from "../lib/CustomContentLoader";
+import PostTitle from "./Post/PostTitle";
+import { store } from "../store";
 
 export default function ExpandedPost(props) {
+    const globalState = useContext(store);
     const [isLoading, setLoading] = useState(true);
     const [post, setPost] = useState(null);
     const [, setError] = useState(null);
@@ -26,16 +29,21 @@ export default function ExpandedPost(props) {
 
         if (typeof props.match === "undefined") return history.push("/");
         let postId = props.match.params["postId"];
-        fetchPost(postId);
-    }, [history, props]);
+        let postIndex = globalState["state"]["posts"].findIndex(v => v.id === parseInt(postId));
+        if (postIndex > -1) {
+            setPost(globalState["state"]["posts"][postIndex]);
+            setLoading(false);
+        } else {
+            fetchPost(postId);
+        }
+    }, [history, props, globalState]);
 
     if (isLoading) return (<CustomContentLoader />)
-
     return (
         <>
             {/* <Button color="primary">Primary</Button>
             <Button color="secondary">Secondary</Button> */}
-            <h2>{post["title"]}</h2>
+            <PostTitle shouldLink={false} {...post} />
             {post["body"]}
         </>
     )
