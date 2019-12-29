@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -34,9 +33,9 @@ export default function ExpandedPost(props) {
 
     return (
         <>
-            <Button color="primary">Primary</Button>
-            <Button color="secondary">Secondary</Button>
-            <h1>{post["title"]}</h1>
+            {/* <Button color="primary">Primary</Button>
+            <Button color="secondary">Secondary</Button> */}
+            <h2>{post["title"]}</h2>
             {post["body"]}
         </>
     )

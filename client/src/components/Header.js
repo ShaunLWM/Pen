@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
+import HeaderProfile from "./HeaderProfile";
+import HeaderTitle from "./HeaderTitle";
+
+
 export default function Header(props) {
   useEffect(() => { }, []);
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Some lameassheader</h1>
+      <HeaderTitle />
+      <HeaderProfile />
     </>
   );
 }

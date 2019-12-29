@@ -1,16 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import CustomContentLoader from "../lib/CustomContentLoader";
+import { setPosts } from "../store/PostReducer";
 import CollapsedPost from "./CollapsedPost";
+const mapDispatch = { setPosts };
 
-export default function PostsList() {
-  const [posts, setPosts] = useState([]);
+const PostsList = ({ setPosts }) => {
+  const [posts, setAllPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
   useEffect(() => {
-    console.log("mount: post list");
     async function getPosts() {
       setError(false);
       try {
@@ -19,6 +20,7 @@ export default function PostsList() {
         );
 
         setPosts(results.data);
+        setAllPosts(results.data)
       } catch (error) {
         console.log(error);
         setError(true);
@@ -39,12 +41,13 @@ export default function PostsList() {
         posts.map(post => {
           return (
             <div key={post.id}>
-              <Link to={`/id/${post.id}`}>
-                <CollapsedPost {...post} />
-              </Link>
+              <CollapsedPost {...post} />
             </div>
           );
-        })}
+        })
+      }
     </>
   );
 }
+
+export default connect(null, mapDispatch)(PostsList);

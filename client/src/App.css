@@ -1,0 +1,9 @@
+body {
+  background-color: black;
+}
+
+.header {
+  box-shadow: none;
+  text-decoration: none;
+  text-align: "center";
+}

@@ -1,10 +1,13 @@
 import React from 'react';
-export default function CollapsedPost({ title, body }) {
+import PostContainer from "./Post/PostContainer";
+
+export default function CollapsedPost({ id, title, body }) {
     // const classes = useStyles();
 
     return (
-        <>
-            <h4>{title}</h4>
-        </>
+        <article>
+            <PostContainer />
+            <p>{body.split("\n")[0]}</p>
+        </article>
     );
 }
