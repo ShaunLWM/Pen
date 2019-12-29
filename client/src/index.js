@@ -4,11 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { StateProvider } from "./store"
+import Editor from "./components/Admin";
 
 ReactDOM.render(
     <StateProvider>
         <BrowserRouter>
-            <App />
+            <Editor />
         </BrowserRouter>
     </StateProvider>
     , document.getElementById("root"));
