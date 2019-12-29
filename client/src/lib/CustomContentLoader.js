@@ -1,7 +1,7 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
 
-const PostsLoader = () => (
+const CustomContentLoader = () => (
     <ContentLoader
         height={280}
         width={500}
@@ -16,11 +16,11 @@ const PostsLoader = () => (
     </ContentLoader>
 )
 
-PostsLoader.metadata = {
+CustomContentLoader.metadata = {
     name: 'RJavlonbek',
     github: 'RJavlonbek',
     description: 'BlogItem',
     filename: 'BlogItem',
 }
 
-export default PostsLoader
+export default CustomContentLoader

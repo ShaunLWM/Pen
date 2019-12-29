@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 export default function Header(props) {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <>
-      <h1>Some lameassheader</h1>
+      <h1 style={{ textAlign: "center" }}>Some lameassheader</h1>
     </>
   );
 }
