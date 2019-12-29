@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import CustomContentLoader from "../lib/CustomContentLoader";
 import PostTitle from "./Post/PostTitle";
+import PostSubtitle from "./Post/PostSubtitle";
 import { store } from "../store";
 
 export default function ExpandedPost(props) {
@@ -44,7 +45,10 @@ export default function ExpandedPost(props) {
             {/* <Button color="primary">Primary</Button>
             <Button color="secondary">Secondary</Button> */}
             <PostTitle shouldLink={false} {...post} />
-            {post["body"]}
+            <PostSubtitle />
+            <p>
+                {post["body"]}
+            </p>
         </>
     )
 }
