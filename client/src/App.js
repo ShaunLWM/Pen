@@ -5,7 +5,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import ExpandedPost from "./components/ExpandedPost";
-import Header from "./components/Header";
+import Header from "./components/Header/";
 import PostsList from "./components/PostsList";
 import ThemeHelper from "./helpers/Theme";
 
