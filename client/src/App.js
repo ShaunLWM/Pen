@@ -8,6 +8,7 @@ import ExpandedPost from "./components/ExpandedPost";
 import Header from "./components/Header/";
 import PostsList from "./components/PostsList";
 import ThemeHelper from "./helpers/Theme";
+import Footer from "./components/Footer/";
 
 function App() {
   return (
@@ -24,8 +25,8 @@ function App() {
           <Route exact path="/" component={PostsList} />
           <Redirect from="*" to="/" />
         </Switch>
+        <Footer />
       </Container>
-      <footer></footer>
     </ThemeProvider>
   );
 }

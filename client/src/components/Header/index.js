@@ -3,7 +3,7 @@ import HeaderProfile from "./HeaderProfile";
 import HeaderTitle from "./HeaderTitle";
 
 
-export default function Header(props) {
+export default function Header() {
   useEffect(() => { }, []);
 
   return (
