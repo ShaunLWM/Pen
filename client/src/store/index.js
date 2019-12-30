@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import { useImmerReducer } from "use-immer";
+import PropTypes from 'prop-types';
 
 const initialState = {
     lastUpdated: 0,
@@ -26,3 +27,7 @@ const StateProvider = ({ children }) => {
 };
 
 export { store, StateProvider }
+
+StateProvider.propTypes = {
+    children: PropTypes.element
+}
