@@ -30,7 +30,7 @@ function uploadImageCallBack(file) {
 async function uploadNewPost({ title, body }) {
     try {
         await axios.post(
-            "/", { title, body }
+            "http://localhost:3001/", { title, body }
         );
     } catch (error) {
         console.error(error);
