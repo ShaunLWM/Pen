@@ -1,6 +1,6 @@
-import React from "react";
-import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+import React from "react";
 
 export default function HeaderProfile() {
     return (
@@ -10,7 +10,7 @@ export default function HeaderProfile() {
                     <Avatar alt="me!" src="/img/me.png" />
                 </Grid>
                 <Grid item xs={10}>
-                    <span>Personal blog by Dan Abramov. </span>
+                    <span>Personal blog by Shaun.</span>
                     <br />
                     <span>I explain with words and code.</span>
                 </Grid>
