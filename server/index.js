@@ -16,7 +16,11 @@ app.use(cors());
 app.get("/", (req, res) => res.send("Hello World!"))
 
 app.get("/page/:pageNumber", (req, res) => {
-
+    let page = parseInt(req["params"]["pageNumber"]);
+    if (page < 0) page = 0;
+    let results = Database.getPage({ page })
+    if (typeof results === "undefined") return res.status(404).json({ message: "Page not found" });
+    return res.status(200).json(results);
 });
 
 app.get("/profile", (req, res) => {
@@ -28,7 +32,9 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/post/:slug", (req, res) => {
-    // slug is only string
+    let results = Database.getPost({ slug: req["params"]["slug"] });
+    if (typeof results === "undefined") return res.status(404).json({ message: "Post not found" });
+    return res.status(200).json(results);
 });
 
 app.post("/", (req, res) => {

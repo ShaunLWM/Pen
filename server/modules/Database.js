@@ -14,7 +14,7 @@ class Database {
             post_slug VARCHAR(50) NOT NULL,
             post_title VARCHAR(50) NOT NULL,
             post_body TEXT NOT NULL,
-            post_date VARCHAR(10) NOT NULL
+            post_date INTEGER(10) NOT NULL
         );
         
         CREATE TABLE IF NOT EXISTS profile (
@@ -25,15 +25,20 @@ class Database {
         `)
     }
 
-    getPosts({ page = 1 }) {
+    getAll() {
+        const stmt = this.db.prepare("SELECT * FROM post ORDER BY post_date DESC");
+        return stmt.all();
+    }
+
+    getPage({ page = 1 }) {
         let postPerPage = 10;
         let startAt = postPerPage * (page - 1);
-        const stmt = this.db.prepare("SELECT* FROM post ORDER BY post_date DESC LIMIT ?, ?");
-        return stmt.run(startAt, postPerPage);
+        const stmt = this.db.prepare("SELECT* FROM post ORDER BY post_id DESC LIMIT ?, ?");
+        return stmt.all(startAt, postPerPage);
     }
 
     getPost({ slug }) {
-        let stmt = db.prepare("SELECT * FROM post WHERE post_slug = ?");
+        let stmt = this.db.prepare("SELECT * FROM post WHERE post_slug = ?");
         return stmt.get(slug);
     }
 
