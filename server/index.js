@@ -13,7 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"))
 app.use(cors());
 
-app.get("/", (req, res) => res.send("Hello World!"))
+app.get("/", (req, res) => {
+    let results = Database.getPage({ page: 1 })
+    if (typeof results === "undefined") return res.status(404).json({ message: "Page not found" });
+    return res.status(200).json(results);
+})
 
 app.get("/page/:pageNumber", (req, res) => {
     let page = parseInt(req["params"]["pageNumber"]);

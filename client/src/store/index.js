@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { createContext } from 'react';
 import { useImmerReducer } from "use-immer";
-import PropTypes from 'prop-types';
 
 const initialState = {
     lastUpdated: 0,
+    currentPage: 1,
     posts: [],
     post: {}
 };
@@ -15,6 +16,13 @@ function reducerFunction(draft, action) {
     switch (action.type) {
         case "setPosts":
             draft["posts"] = action["data"];
+            draft["lastUpdated"] = Math.floor(new Date().getTime() / 1000);
+            break;
+        case "nextPage":
+            draft["currentPage"] = draft["currentPage"] + 1;
+            break;
+        case "previousPage":
+            draft["currentPage"] = draft["currentPage"] - 1;
             break;
         default:
             draft = initialState;
@@ -26,7 +34,7 @@ const StateProvider = ({ children }) => {
     return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
-export { store, StateProvider }
+export { store, StateProvider };
 
 StateProvider.propTypes = {
     children: PropTypes.element

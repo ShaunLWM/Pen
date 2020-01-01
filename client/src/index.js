@@ -3,13 +3,12 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { StateProvider } from "./store"
-import Editor from "./components/Admin";
+import { StateProvider } from "./store";
 
 ReactDOM.render(
     <StateProvider>
         <BrowserRouter>
-            <Editor />
+            <App />
         </BrowserRouter>
     </StateProvider>
     , document.getElementById("root"));

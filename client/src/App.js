@@ -20,7 +20,7 @@ function App() {
         <div id="about"></div>
         <Switch>
           <Route
-            path="/id/:postId"
+            path="/id/:postSlug"
             render={props => <ExpandedPost {...props} />}
           />
           <Route exact path="/admin" component={Admin} />
@@ -34,3 +34,7 @@ function App() {
 }
 
 export default App;
+
+let serverUrl = "http://localhost:3001"
+export { serverUrl };
+

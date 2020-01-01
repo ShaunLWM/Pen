@@ -1,21 +1,24 @@
+import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 
-export default function PostTitle({ id, title, shouldLink = true }) {
-    if (shouldLink) {
-        return (
-            <Link to={`/id/${id}`} style={{ textDecoration: 'none' }}> <h2 style={{ marginBottom: "0px" }}>{title}</h2></Link>
-        )
-    }
+const useStyles = makeStyles({
+    postTitle: {
+        "font-size": "1.75rem",
+        "margin-bottom": "0.4375rem"
+    },
+});
 
-    return (
-        <h2 style={{ marginBottom: "0px" }}>{title}</h2>
-    )
+export default function PostTitle({ post_slug, post_title, shouldLink = true }) {
+    const classes = useStyles();
+    if (shouldLink)
+        return (<Link to={`/id/${post_slug}`} style={{ textDecoration: 'none' }}> <h3 className={classes.postTitle}>{post_title}</h3></Link>)
+    return (<h3 className={classes.postTitle}>{post_title}</h3>)
 }
 
 PostTitle.propTypes = {
-    id: PropTypes.number,
-    title: PropTypes.string,
+    post_slug: PropTypes.string,
+    post_title: PropTypes.string,
     shouldLink: PropTypes.bool
 }

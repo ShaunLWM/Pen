@@ -12,7 +12,7 @@ const db = require("../modules/Database");
 // console.log(db.getProfile())
 //console.log(db.getPost({ slug: "adawdwadwadiawndfoiawd89" }))
 //console.log(db.getAll())
-console.log(db.getPage({ page: 1 }))
+// console.log(db.getPage({ page: 1 }))
 
 
 

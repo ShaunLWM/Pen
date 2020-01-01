@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import { serverUrl } from "../App";
 import CustomContentLoader from "../lib/CustomContentLoader";
-import CollapsedPost from "./CollapsedPost";
 import { store } from "../store";
+import CollapsedPost from "./CollapsedPost";
 
 export default function PostsList() {
   const globalState = useContext(store);
@@ -15,12 +15,9 @@ export default function PostsList() {
 
   useEffect(() => {
     async function getPosts() {
-      setError(false);
       try {
-        let results = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
-
+        let results = await axios.get(serverUrl);
+        console.log(results.data)
         setPosts(results.data);
         dispatch({ type: "setPosts", data: results.data })
       } catch (error) {
@@ -34,15 +31,15 @@ export default function PostsList() {
     getPosts();
   }, [dispatch]);
 
-  if (isError) return (<h1>Error loading post</h1>);
   if (isLoading) return (<CustomContentLoader />);
+  if (isError) return (<h1>Error loading post</h1>);
 
   return (
     <>
       {
         posts.map(post => {
           return (
-            <div key={post.id}>
+            <div key={post["post_id"]}>
               <CollapsedPost {...post} />
             </div>
           );
