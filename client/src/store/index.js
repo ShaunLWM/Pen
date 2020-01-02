@@ -6,7 +6,8 @@ const initialState = {
     lastUpdated: 0,
     currentPage: 1,
     posts: [],
-    post: {}
+    post: {},
+    profile: {}
 };
 
 const store = createContext(initialState);
@@ -20,6 +21,9 @@ function reducerFunction(draft, action) {
             break;
         case "nextPage":
             draft["currentPage"] = draft["currentPage"] + 1;
+            break;
+        case "setProfile":
+            draft["profile"] = action["data"];
             break;
         case "previousPage":
             draft["currentPage"] = draft["currentPage"] - 1;

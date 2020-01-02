@@ -29,7 +29,7 @@ app.get("/page/:pageNumber", (req, res) => {
 
 app.get("/profile", (req, res) => {
     return res.status(200).json({
-        image: "/img/me.png",
+        img: "/img/me.png",
         name: "Shaun",
         description: ["Personal blog by Shaun.", "I explain with words and code."]
     });

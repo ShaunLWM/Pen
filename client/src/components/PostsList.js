@@ -21,7 +21,7 @@ export default function PostsList() {
         setPosts(results.data);
         dispatch({ type: "setPosts", data: results.data })
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setError(true);
       }
 
@@ -41,6 +41,7 @@ export default function PostsList() {
           return (
             <div key={post["post_id"]}>
               <CollapsedPost {...post} />
+              <hr />>
             </div>
           );
         })
