@@ -1,5 +1,5 @@
-import React from 'react'
-import ContentLoader from 'react-content-loader'
+import React from "react"
+import ContentLoader from "react-content-loader"
 
 const CustomContentLoader = () => (
     <ContentLoader
@@ -17,10 +17,10 @@ const CustomContentLoader = () => (
 )
 
 CustomContentLoader.metadata = {
-    name: 'RJavlonbek',
-    github: 'RJavlonbek',
-    description: 'BlogItem',
-    filename: 'BlogItem',
+    name: "RJavlonbek",
+    github: "RJavlonbek",
+    description: "BlogItem",
+    filename: "BlogItem",
 }
 
 export default CustomContentLoader

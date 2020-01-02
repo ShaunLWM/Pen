@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import HeaderProfile from "./HeaderProfile";
 import HeaderTitle from "./HeaderTitle";
-import CustomContentLoader from "../../lib/CustomContentLoader";
+import AvatarWithText from "../../lib/AvatarContentLoader";
 import { serverUrl } from "../../App";
 import { store } from "../../store";
 import axios from "axios";
@@ -29,7 +29,7 @@ export default function Header() {
     if (typeof globalState["state"]["profile"]["img"] === "undefined") getProfile();
   }, [dispatch, globalState]);
 
-  if (isLoading) return (<CustomContentLoader />);
+  if (isLoading) return (<AvatarWithText />);
   if (isError) return (<h1>Error loading profile</h1>);
 
   return (
