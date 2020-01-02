@@ -6,7 +6,7 @@ export default function HeaderTitle() {
     const globalState = useContext(store);
     return (
         <Link to={`/`} style={{ textDecoration: 'none' }}>
-            <h1 className="header">{globalState["profile"]["name"]}</h1>
+            <h1 className="header">{globalState["state"]["profile"]["name"]}</h1>
         </Link >
     );
 }

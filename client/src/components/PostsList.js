@@ -41,7 +41,7 @@ export default function PostsList() {
           return (
             <div key={post["post_id"]}>
               <CollapsedPost {...post} />
-              <hr />>
+              <hr style={{ "marginTop": "10px" }} />
             </div>
           );
         })

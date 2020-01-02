@@ -8,9 +8,9 @@ export default function HeaderProfile() {
     const [profile, setProfile] = useState("");
 
     useEffect(() => {
-        let p = globalState["profile"]["description"].map(e => {
-            return <span>{e}</span>
-        }).join(<br />)
+        let p = globalState["state"]["profile"]["description"].map(e => {
+            return `<span>${e}</span>`;
+        }).join("<br />");
         setProfile(p);
     }, [globalState]);
 
@@ -18,7 +18,7 @@ export default function HeaderProfile() {
         <>
             <Grid container spacing={1}>
                 <Grid item xs={2}>
-                    <Avatar alt="me!" src={globalState["profile"]["img"]} />
+                    <Avatar alt="me!" src={globalState["state"]["profile"]["img"]} />
                 </Grid>
                 <Grid item xs={10}>
                     <div dangerouslySetInnerHTML={{ __html: profile }} />

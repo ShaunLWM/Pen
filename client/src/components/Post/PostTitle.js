@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles({
     postTitle: {
         "font-size": "1.75rem",
-        "margin-bottom": "0.4375rem"
+        "margin-bottom": "0rem"
     },
 });
 
