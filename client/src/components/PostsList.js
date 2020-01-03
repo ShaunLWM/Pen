@@ -16,8 +16,7 @@ export default function PostsList() {
   useEffect(() => {
     async function getPosts() {
       try {
-        let results = await axios.get(serverUrl);
-        console.log(results.data)
+        const results = await axios.get(serverUrl);
         setPosts(results.data);
         dispatch({ type: "setPosts", data: results.data })
       } catch (error) {
@@ -37,11 +36,11 @@ export default function PostsList() {
   return (
     <>
       {
-        posts.map(post => {
+        posts.map((post) => {
           return (
             <div key={post["post_id"]}>
               <CollapsedPost {...post} />
-              <hr style={{ "marginTop": "10px" }} />
+              <hr style={{ marginTop: "10px" }} />
             </div>
           );
         })

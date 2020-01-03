@@ -14,15 +14,15 @@ app.use(express.static("public"))
 app.use(cors());
 
 app.get("/", (req, res) => {
-    let results = Database.getPage({ page: 1 })
+    const results = Database.getPage({ page: 1 })
     if (typeof results === "undefined") return res.status(404).json({ message: "Page not found" });
     return res.status(200).json(results);
 })
 
 app.get("/page/:pageNumber", (req, res) => {
-    let page = parseInt(req["params"]["pageNumber"]);
+    let page = parseInt(req["params"]["pageNumber"], 10);
     if (page < 0) page = 0;
-    let results = Database.getPage({ page })
+    const results = Database.getPage({ page })
     if (typeof results === "undefined") return res.status(404).json({ message: "Page not found" });
     return res.status(200).json(results);
 });
@@ -36,7 +36,7 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/post/:slug", (req, res) => {
-    let results = Database.getPost({ slug: req["params"]["slug"] });
+    const results = Database.getPost({ slug: req["params"]["slug"] });
     if (typeof results === "undefined") return res.status(404).json({ message: "Post not found" });
     return res.status(200).json(results);
 });

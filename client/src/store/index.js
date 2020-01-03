@@ -8,7 +8,7 @@ const initialState = {
     posts: [],
     post: {},
     profile: {},
-    currentTheme: "light"
+    currentTheme: "light",
 };
 
 const store = createContext(initialState);
@@ -45,5 +45,5 @@ const StateProvider = ({ children }) => {
 export { store, StateProvider };
 
 StateProvider.propTypes = {
-    children: PropTypes.element
-}
+    children: PropTypes.element,
+};

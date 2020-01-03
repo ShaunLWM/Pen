@@ -13,12 +13,12 @@ export default function ExpandedPost(props) {
     const [isLoading, setLoading] = useState(true);
     const [post, setPost] = useState(null);
     const [isError, setError] = useState(null);
-    let history = useHistory();
+    const history = useHistory();
 
     useEffect(() => {
         async function fetchPost(id) {
             try {
-                let results = await axios.get(`${serverUrl}/post/${id}`);
+                const results = await axios.get(`${serverUrl}/post/${id}`);
                 setPost(results.data);
                 setLoading(false);
             } catch (error) {
@@ -33,7 +33,7 @@ export default function ExpandedPost(props) {
             // if user directly goes to the url, we have to refetch the data from the url
             fetchPost(postSlug);
         } else {
-            let postIndex = globalState["state"]["posts"].findIndex(v => v["slug"] === postSlug);
+            const postIndex = globalState["state"]["posts"].findIndex((v) => v["slug"] === postSlug);
             if (postIndex > -1) {
                 setPost(globalState["state"]["posts"][postIndex]);
                 setLoading(false);

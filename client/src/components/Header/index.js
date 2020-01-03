@@ -16,8 +16,8 @@ export default function Header() {
   useEffect(() => {
     async function getProfile() {
       try {
-        let results = await axios.get(`${serverUrl}/profile`);
-        dispatch({ type: "setProfile", data: results.data })
+        const results = await axios.get(`${serverUrl}/profile`);
+        dispatch({ type: "setProfile", data: results.data });
       } catch (error) {
         console.error(error);
         setError(true);
@@ -33,7 +33,7 @@ export default function Header() {
   if (isError) return (<h1>Error loading profile</h1>);
 
   return (
-    <div style={{ "marginBottom": "20px" }}>
+    <div style={{ marginBottom: "20px" }}>
       <HeaderTitle />
       <HeaderProfile />
     </div>

@@ -1,5 +1,5 @@
-import React from 'react'
-import ContentLoader from 'react-content-loader'
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const AvatarWithText = () => (
     <ContentLoader
@@ -16,13 +16,13 @@ const AvatarWithText = () => (
         <rect x="484" y="-45" rx="3" ry="3" width="201" height="6" />
         <circle cx="48" cy="48" r="48" />
     </ContentLoader>
-)
+);
 
 AvatarWithText.metadata = {
-    name: 'Akash Bambhaniya',
-    github: 'Akashnb', // Github username
-    description: 'Avatar With Text (circle)',
-    filename: 'AvatarWithText', // filename of your loader
-}
+    name: "Akash Bambhaniya",
+    github: "Akashnb", // Github username
+    description: "Avatar With Text (circle)",
+    filename: "AvatarWithText", // filename of your loader
+};
 
-export default AvatarWithText
+export default AvatarWithText;

@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-const database = require("better-sqlite3");
+const SQLite3 = require("better-sqlite3");
 const slugify = require("@sindresorhus/slugify");
 
 class Database {
     constructor() {
-        this.db = new database("database.db", { verbose: console.log });
+        this.db = new SQLite3("database.db", { verbose: console.log });
     }
 
     setup() {
@@ -16,13 +16,13 @@ class Database {
             post_body TEXT NOT NULL,
             post_date INTEGER(10) NOT NULL
         );
-        
+
         CREATE TABLE IF NOT EXISTS profile (
             profile_name VARCHAR(50) NOT NULL,
             profile_image VARCHAR(50) NOT NULL,
             profile_description VARCHAR(50) NOT NULL
         );
-        `)
+        `);
     }
 
     getAll() {
@@ -31,14 +31,14 @@ class Database {
     }
 
     getPage({ page = 1 }) {
-        let postPerPage = 10;
-        let startAt = postPerPage * (page - 1);
+        const postPerPage = 10;
+        const startAt = postPerPage * (page - 1);
         const stmt = this.db.prepare("SELECT* FROM post ORDER BY post_id DESC LIMIT ?, ?");
         return stmt.all(startAt, postPerPage);
     }
 
     getPost({ slug }) {
-        let stmt = this.db.prepare("SELECT * FROM post WHERE post_slug = ?");
+        const stmt = this.db.prepare("SELECT * FROM post WHERE post_slug = ?");
         return stmt.get(slug);
     }
 
@@ -49,12 +49,12 @@ class Database {
     }
 
     deletePost({ slug }) {
-        let stmt = db.prepare("DELETE FROM post WHERE slug = ?");
+        const stmt = this.db.prepare("DELETE FROM post WHERE slug = ?");
         return stmt.run(slug);
     }
 
     updatePost({ title, body }) {
-        let stmt = db.prepare("UPDATE post SET post_slug = ?, post_title = ?, post_body = ?, post_date = ? WHERE post_slug = ?");
+        const stmt = this.db.prepare("UPDATE post SET post_slug = ?, post_title = ?, post_body = ?, post_date = ? WHERE post_slug = ?");
         return stmt.run(slugify(title), title, body, Math.floor(new Date() / 1000));
     }
 

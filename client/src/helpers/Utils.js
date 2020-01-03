@@ -1,7 +1,7 @@
 import { theme } from "../helpers/Theme";
 
 export function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function createTheme(type) {
@@ -9,7 +9,7 @@ export function createTheme(type) {
     ...theme,
     palette: {
       ...theme.palette,
-      type
-    }
-  }
+      type,
+    },
+  };
 }

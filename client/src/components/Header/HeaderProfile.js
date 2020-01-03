@@ -10,9 +10,7 @@ export default function HeaderProfile() {
     const [, toggleDarkMode] = useDarkMode();
 
     useEffect(() => {
-        let p = globalState["state"]["profile"]["description"].map(e => {
-            return `<span>${e}</span>`;
-        }).join("<br />");
+        const p = globalState["state"]["profile"]["description"].map((e) => `<span>${e}</span>`).join("<br />");
         setProfile(p);
     }, [globalState]);
 

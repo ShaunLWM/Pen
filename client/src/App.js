@@ -4,10 +4,10 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React, { useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Admin from "./components/Admin/";
+import Admin from "./components/Admin";
 import ExpandedPost from "./components/ExpandedPost";
-import Footer from "./components/Footer/";
-import Header from "./components/Header/";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import PostsList from "./components/PostsList";
 import { createTheme } from "./helpers/Utils";
 import { store } from "./store";
@@ -23,7 +23,7 @@ function App() {
         <Switch>
           <Route
             path="/id/:postSlug"
-            render={props => <ExpandedPost {...props} />}
+            render={(props) => <ExpandedPost {...props} />}
           />
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/" component={PostsList} />
@@ -37,5 +37,5 @@ function App() {
 
 export default App;
 
-let serverUrl = "http://localhost:3001"
+const serverUrl = "http://localhost:3001";
 export { serverUrl };
