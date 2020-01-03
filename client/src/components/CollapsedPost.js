@@ -7,8 +7,6 @@ export default function CollapsedPost(props) {
     const [body, setBody] = useState(<div />);
 
     useEffect(() => {
-        console.log(props["post_body"]);
-        console.log(cheerio(props["post_body"]).find("p").first().html())
         setBody(cheerio(props["post_body"]).find("p").first().html());
     }, [props]);
 

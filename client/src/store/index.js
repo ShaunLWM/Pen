@@ -7,7 +7,8 @@ const initialState = {
     currentPage: 1,
     posts: [],
     post: {},
-    profile: {}
+    profile: {},
+    currentTheme: "light"
 };
 
 const store = createContext(initialState);
@@ -27,6 +28,9 @@ function reducerFunction(draft, action) {
             break;
         case "previousPage":
             draft["currentPage"] = draft["currentPage"] - 1;
+            break;
+        case "setTheme":
+            draft["currentTheme"] = action["data"];
             break;
         default:
             draft = initialState;

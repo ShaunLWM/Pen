@@ -1,7 +1,7 @@
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from '@material-ui/core/styles';
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Admin from "./components/Admin/";
@@ -9,15 +9,18 @@ import ExpandedPost from "./components/ExpandedPost";
 import Footer from "./components/Footer/";
 import Header from "./components/Header/";
 import PostsList from "./components/PostsList";
-import ThemeHelper from "./helpers/Theme";
+import { createMuiTheme } from '@material-ui/core/styles';
+import { store } from "./store";
+import { createTheme } from "./helpers/Utils";
 
 function App() {
+  const globalState = useContext(store);
+
   return (
-    <ThemeProvider theme={ThemeHelper}>
+    <ThemeProvider theme={createMuiTheme(createTheme(globalState["state"]["currentTheme"]))}>
       <Container maxWidth="sm">
         <CssBaseline />
         <Header />
-        <div id="about"></div>
         <Switch>
           <Route
             path="/id/:postSlug"

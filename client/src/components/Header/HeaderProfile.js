@@ -2,10 +2,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import React, { useContext, useState, useEffect } from "react";
 import { store } from "../../store";
+import useDarkMode from "../../lib/useDarkMode";
 
 export default function HeaderProfile() {
     const globalState = useContext(store);
     const [profile, setProfile] = useState("");
+    const [, toggleDarkMode] = useDarkMode();
 
     useEffect(() => {
         let p = globalState["state"]["profile"]["description"].map(e => {
@@ -18,7 +20,7 @@ export default function HeaderProfile() {
         <>
             <Grid container spacing={1}>
                 <Grid item xs={2}>
-                    <Avatar alt="me!" src={globalState["state"]["profile"]["img"]} />
+                    <Avatar onClick={toggleDarkMode} alt="me!" src={globalState["state"]["profile"]["img"]} />
                 </Grid>
                 <Grid item xs={10}>
                     <div dangerouslySetInnerHTML={{ __html: profile }} />
