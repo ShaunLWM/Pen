@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import PostContainer from "./Post/PostContainer";
-import Typography from '@material-ui/core/Typography';
 import cheerio from "cheerio";
+import React, { useEffect, useState } from "react";
+import PostBody from "./Post/PostBody";
+import PostContainer from "./Post/PostContainer";
 
 export default function CollapsedPost(props) {
     const [body, setBody] = useState(<div />);
@@ -13,9 +13,7 @@ export default function CollapsedPost(props) {
     return (
         <article>
             <PostContainer {...props} />
-            <Typography style={{ "marginTop": "10px" }} variant="body1" gutterBottom dangerouslySetInnerHTML={{
-                __html: body
-            }} />
+            <PostBody body={body} />
         </article>
     );
 }

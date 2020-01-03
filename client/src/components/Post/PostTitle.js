@@ -1,8 +1,8 @@
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
-import React, { forwardRef } from "react";
+import React from "react";
 import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles({
     postTitle: {
@@ -10,10 +10,6 @@ const useStyles = makeStyles({
         "margin-bottom": "0rem"
     },
 });
-
-const LinkBehavior = forwardRef((props, ref) => (
-    <RouterLink ref={ref} {...props} />
-));
 
 export default function PostTitle({ post_slug, post_title, shouldLink = true }) {
     const classes = useStyles();

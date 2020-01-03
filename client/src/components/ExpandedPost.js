@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom";
 import { serverUrl } from "../App";
 import CustomContentLoader from "../lib/CustomContentLoader";
 import { store } from "../store";
+import PostBody from "./Post/PostBody";
 import PostSubtitle from "./Post/PostSubtitle";
 import PostTitle from "./Post/PostTitle";
-import Typography from '@material-ui/core/Typography';
 
 export default function ExpandedPost(props) {
     const globalState = useContext(store);
@@ -49,9 +49,7 @@ export default function ExpandedPost(props) {
         <>
             <PostTitle shouldLink={false} {...post} />
             <PostSubtitle />
-            <Typography style={{ "marginTop": "10px" }} variant="body1" gutterBottom dangerouslySetInnerHTML={{
-                __html: post["post_body"]
-            }} />
+            <PostBody body={post["post_body"]} />
         </>
     )
 }

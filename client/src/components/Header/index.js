@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { serverUrl } from "../../App";
+import AvatarWithText from "../../lib/AvatarContentLoader";
+import { store } from "../../store";
 import HeaderProfile from "./HeaderProfile";
 import HeaderTitle from "./HeaderTitle";
-import AvatarWithText from "../../lib/AvatarContentLoader";
-import { serverUrl } from "../../App";
-import { store } from "../../store";
-import axios from "axios";
 
 export default function Header() {
   const globalState = useContext(store);

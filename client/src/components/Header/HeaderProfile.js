@@ -1,8 +1,8 @@
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import React, { useContext, useState, useEffect } from "react";
-import { store } from "../../store";
+import React, { useContext, useEffect, useState } from "react";
 import useDarkMode from "../../lib/useDarkMode";
+import { store } from "../../store";
 
 export default function HeaderProfile() {
     const globalState = useContext(store);
