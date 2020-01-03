@@ -4,6 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const app = express();
 
 const Database = require("./modules/Database");
@@ -52,4 +53,4 @@ app.post("/", (req, res) => {
 })
 
 // eslint-disable-next-line no-undef
-app.listen(process.env.SERVER_PORT, () => console.log(`Example app listening on port ${process.env.SERVER_PORT}!`))
+app.listen(process.env.SERVER_PORT, () => console.log(`Example app listening on port ${process.env.SERVER_PORT}!`));
