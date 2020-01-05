@@ -8,5 +8,5 @@ export default function PostContainer(props) {
             <PostTitle {...props} />
             <PostSubtitle />
         </header>
-    )
+    );
 }

@@ -1,4 +1,4 @@
-import { theme } from "../helpers/Theme";
+import { theme } from "./Theme";
 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));

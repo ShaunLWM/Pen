@@ -28,7 +28,7 @@ export default function ExpandedPost(props) {
         }
 
         if (typeof props.match === "undefined") return history.push("/");
-        let postSlug = props.match.params["postSlug"];
+        const postSlug = props.match.params["postSlug"];
         if (typeof globalState["state"]["posts"] === "undefined" || globalState["state"]["posts"].length < 1) {
             // if user directly goes to the url, we have to refetch the data from the url
             fetchPost(postSlug);
@@ -44,12 +44,12 @@ export default function ExpandedPost(props) {
     }, [history, props, globalState]);
 
     if (isLoading) return (<CustomContentLoader />);
-    if (isError) return (<h2>Failed to fetch post.</h2>)
+    if (isError) return (<h2>Failed to fetch post.</h2>);
     return (
         <>
             <PostTitle shouldLink={false} {...post} />
             <PostSubtitle />
             <PostBody body={post["post_body"]} />
         </>
-    )
+    );
 }

@@ -18,7 +18,7 @@ export default function PostsList() {
       try {
         const results = await axios.get(serverUrl);
         setPosts(results.data);
-        dispatch({ type: "setPosts", data: results.data })
+        dispatch({ type: "setPosts", data: results.data });
       } catch (error) {
         console.error(error);
         setError(true);
@@ -36,14 +36,12 @@ export default function PostsList() {
   return (
     <>
       {
-        posts.map((post) => {
-          return (
-            <div key={post["post_id"]}>
-              <CollapsedPost {...post} />
-              <hr style={{ marginTop: "10px" }} />
-            </div>
-          );
-        })
+        posts.map((post) => (
+          <div key={post["post_id"]}>
+            <CollapsedPost {...post} />
+            <hr style={{ marginTop: "10px" }} />
+          </div>
+        ))
       }
     </>
   );

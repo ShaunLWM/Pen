@@ -30,7 +30,7 @@ function uploadImageCallBack(file) {
 async function uploadNewPost({ title, body }) {
     try {
         await axios.post(
-            "http://localhost:3001/", { title, body }
+            "http://localhost:3001/", { title, body },
         );
     } catch (error) {
         console.error(error);
@@ -44,7 +44,7 @@ export default function EditorConvertToHTML() {
     return (
         <div>
             <form noValidate autoComplete="off">
-                <TextField required id="standard-basic" label="Title" value={title} onChange={e => setTitle(e.target.value)} />
+                <TextField required id="standard-basic" label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <Editor
                     editorState={editorState}
                     wrapperClassName="demo-wrapper"
@@ -54,13 +54,13 @@ export default function EditorConvertToHTML() {
                         image: {
                             urlEnabled: true,
                             uploadEnabled: true,
-                            uploadCallback: uploadImageCallBack
-                        }
+                            uploadCallback: uploadImageCallBack,
+                        },
                     }}
                 />
                 <Button variant="contained" onClick={() => uploadNewPost({
                     title,
-                    body: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+                    body: draftToHtml(convertToRaw(editorState.getCurrentContent())),
                 })}>Default</Button>
             </form>
 

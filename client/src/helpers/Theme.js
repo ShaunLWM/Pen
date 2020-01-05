@@ -1,6 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-let theme = {
+const theme = {
     "palette": {
         // "common": {
         //     "black": "#000",
@@ -34,9 +34,9 @@ let theme = {
         //     "disabled": "rgba(0, 0, 0, 0.38)",
         //     "hint": "rgba(0, 0, 0, 0.38)"
         // },
-        "type": "dark"
-    }
-}
+        "type": "dark",
+    },
+};
 
 export { theme };
 const ThemeHelper = createMuiTheme(theme);
