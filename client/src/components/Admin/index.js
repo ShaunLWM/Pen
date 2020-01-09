@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Typography from '@material-ui/core/Typography';
 import axios from "axios";
 import { convertToRaw, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
@@ -27,24 +28,32 @@ function uploadImageCallBack(file) {
         },
     );
 }
-async function uploadNewPost({ title, body }) {
-    try {
-        await axios.post(
-            "http://localhost:3001/", { title, body },
-        );
-    } catch (error) {
-        console.error(error);
-    }
-}
+
 
 export default function EditorConvertToHTML() {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [title, setTitle] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentError, setCurrentError] = useState("");
+
+    const handleSubmitClick = async () => {
+        if (currentTitle.length < 1) return setCurrentError("Title is blank");
+        const body = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+        if (body.length < 8) return setCurrentError("Title is blank");
+        setCurrentError("");
+        try {
+            await axios.post("http://localhost:3001/", { title: currentTitle, body });
+        } catch (error) {
+            setCurrentError(error);
+        }
+
+        return null;
+    };
 
     return (
         <div>
+            <Typography variant="h6">{currentError}</Typography>
             <form noValidate autoComplete="off">
-                <TextField required id="standard-basic" label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <TextField required id="standard-basic" label="Title" value={currentTitle} onChange={(e) => setCurrentTitle(e.target.value)} />
                 <Editor
                     editorState={editorState}
                     wrapperClassName="demo-wrapper"
@@ -58,16 +67,8 @@ export default function EditorConvertToHTML() {
                         },
                     }}
                 />
-                <Button variant="contained" onClick={() => uploadNewPost({
-                    title,
-                    body: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-                })}>Default</Button>
+                <Button variant="contained" onClick={handleSubmitClick}>Submit</Button>
             </form>
-
-            <textarea
-                disabled
-                value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-            />
         </div>
     );
 }

@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
 const SQLite3 = require("better-sqlite3");
 const slugify = require("@sindresorhus/slugify");
+const Utils = require("./Utils");
 
 class Database {
     constructor() {
         this.db = new SQLite3("database.db", { verbose: console.log });
+        this.setup();
     }
 
     setup() {
@@ -14,7 +16,8 @@ class Database {
             post_slug VARCHAR(50) NOT NULL,
             post_title VARCHAR(50) NOT NULL,
             post_body TEXT NOT NULL,
-            post_date INTEGER(10) NOT NULL
+            post_date INTEGER(10) NOT NULL,
+            post_reading_time INTEGER(10) DEFAULT 5
         );
 
         CREATE TABLE IF NOT EXISTS profile (
@@ -43,8 +46,10 @@ class Database {
     }
 
     addPost({ title, body }) {
-        const stmt = this.db.prepare("INSERT INTO post (post_slug, post_title, post_body, post_date) VALUES (?, ?, ?, ?)");
-        stmt.bind(slugify(title), title, body, Math.floor(new Date() / 1000));
+        const postBody = Utils.cleanBody(body);
+        const readingTime = Utils.calculateReadingTime(postBody, true);
+        const stmt = this.db.prepare("INSERT INTO post (post_slug, post_title, post_body, post_date, post_reading_time) VALUES (?, ?, ?, ?, ?)");
+        stmt.bind(slugify(title), title, postBody, Math.floor(new Date() / 1000), readingTime);
         return stmt.run();
     }
 
@@ -53,9 +58,11 @@ class Database {
         return stmt.run(slug);
     }
 
-    updatePost({ title, body }) {
-        const stmt = this.db.prepare("UPDATE post SET post_slug = ?, post_title = ?, post_body = ?, post_date = ? WHERE post_slug = ?");
-        return stmt.run(slugify(title), title, body, Math.floor(new Date() / 1000));
+    updatePost({ id, title, body }) {
+        const postBody = Utils.cleanBody(body);
+        const readingTime = Utils.calculateReadingTime(postBody, true);
+        const stmt = this.db.prepare("UPDATE post SET post_slug = ?, post_title = ?, post_body = ?, post_date = ?, post_reading_time = ? WHERE post_id = ?"); // old slug
+        return stmt.run(slugify(title), title, postBody, Math.floor(new Date() / 1000), readingTime, id);
     }
 
     getProfile() {
