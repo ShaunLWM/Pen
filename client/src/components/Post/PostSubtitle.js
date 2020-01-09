@@ -12,4 +12,4 @@ export default function PostSubtitle({ post_reading_time, post_date }) {
 PostSubtitle.propTypes = {
     post_reading_time: PropTypes.number,
     post_date: PropTypes.number,
-}
+};

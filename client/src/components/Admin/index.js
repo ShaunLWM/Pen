@@ -42,6 +42,7 @@ export default function EditorConvertToHTML() {
         setCurrentError("");
         try {
             await axios.post("http://localhost:3001/", { title: currentTitle, body });
+            window.location.reload();
         } catch (error) {
             setCurrentError(error);
         }
