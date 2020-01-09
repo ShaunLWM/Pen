@@ -1,75 +1,71 @@
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
-import axios from "axios";
-import { convertToRaw, EditorState } from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import React, { useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import PropTypes from 'prop-types';
+import React from 'react';
+import EditorTab from "./tabs/EditorTab";
+import SettingsTab from "./tabs/SettingsTab";
 
-function uploadImageCallBack(file) {
-    return new Promise(
-        (resolve, reject) => {
-            const xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
-            xhr.open("POST", "https://api.imgur.com/3/image");
-            xhr.setRequestHeader("Authorization", "Client-ID 8d26ccd12712fca");
-            const data = new FormData(); // eslint-disable-line no-undef
-            data.append("image", file);
-            xhr.send(data);
-            xhr.addEventListener("load", () => {
-                const response = JSON.parse(xhr.responseText);
-                resolve(response);
-            });
-            xhr.addEventListener("error", () => {
-                const error = JSON.parse(xhr.responseText);
-                reject(error);
-            });
-        },
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && <Box p={3}>{children}</Box>}
+        </Typography>
     );
 }
 
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
 
-export default function EditorConvertToHTML() {
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [currentTitle, setCurrentTitle] = useState("");
-    const [currentError, setCurrentError] = useState("");
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 
-    const handleSubmitClick = async () => {
-        if (currentTitle.length < 1) return setCurrentError("Title is blank");
-        const body = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-        if (body.length < 8) return setCurrentError("Body is blank");
-        setCurrentError("");
-        try {
-            await axios.post("http://localhost:3001/", { title: currentTitle, body });
-            window.location.reload();
-        } catch (error) {
-            setCurrentError(error);
-        }
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+    },
+}));
 
-        return null;
+export default function SimpleTabs() {
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
     };
 
     return (
-        <div>
-            <Typography variant="h6">{currentError}</Typography>
-            <form noValidate autoComplete="off">
-                <TextField required id="standard-basic" label="Title" value={currentTitle} onChange={(e) => setCurrentTitle(e.target.value)} />
-                <Editor
-                    editorState={editorState}
-                    wrapperClassName="demo-wrapper"
-                    editorClassName="demo-editor"
-                    onEditorStateChange={setEditorState}
-                    toolbar={{
-                        image: {
-                            urlEnabled: true,
-                            uploadEnabled: true,
-                            uploadCallback: uploadImageCallBack,
-                        },
-                    }}
-                />
-                <Button variant="contained" onClick={handleSubmitClick}>Submit</Button>
-            </form>
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                    <Tab label="New Post" {...a11yProps(0)} />
+                    <Tab label="Settings" {...a11yProps(1)} />
+                    <Tab label="Item Three" {...a11yProps(2)} />
+                </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}><EditorTab /></TabPanel>
+            <TabPanel value={value} index={1}><SettingsTab /></TabPanel>
+            <TabPanel value={value} index={2}>Item Three</TabPanel>
         </div>
     );
 }
