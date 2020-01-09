@@ -20,19 +20,17 @@ export default function PostsList() {
         setPosts(results.data);
         dispatch({ type: "setPosts", data: results.data });
       } catch (error) {
-        console.error(error);
         setError(true);
       }
 
-      setLoading(false);
+      return setLoading(false);
     }
 
     getPosts();
   }, [dispatch]);
 
   if (isLoading) return (<CustomContentLoader />);
-  if (isError) return (<h1>Error loading post</h1>);
-
+  if (isError) return (<h2>Error loading post</h2>);
   return (
     <>
       {

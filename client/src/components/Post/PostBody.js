@@ -11,5 +11,5 @@ export default function PostBody({ body }) {
 }
 
 PostBody.propTypes = {
-    body: PropTypes.object,
+    body: PropTypes.any,
 };

@@ -20,11 +20,11 @@ export default function ExpandedPost(props) {
             try {
                 const results = await axios.get(`${serverUrl}/post/${id}`);
                 setPost(results.data);
-                setLoading(false);
             } catch (error) {
-                console.log(error);
                 setError(true);
             }
+
+            return setLoading(false);
         }
 
         if (typeof props.match === "undefined") return history.push("/");
@@ -48,7 +48,7 @@ export default function ExpandedPost(props) {
     return (
         <>
             <PostTitle shouldLink={false} {...post} />
-            <PostSubtitle />
+            <PostSubtitle {...post} />
             <PostBody body={post["post_body"]} />
         </>
     );

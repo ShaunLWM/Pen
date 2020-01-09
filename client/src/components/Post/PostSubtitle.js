@@ -1,7 +1,15 @@
+import PropTypes from "prop-types";
 import React from "react";
 
-export default function PostSubtitle() {
+require("date-format-lite");
+
+export default function PostSubtitle({ post_reading_time, post_date }) {
     return (
-        <small style={{ marginBottom: "5px" }}>10 December 2019 • <span role="img" aria-label="coffee">☕️</span> 5 min read.</small>
+        <small style={{ marginBottom: "5px" }}>{post_date.date("D MMMM YYYY")} • <span role="img" aria-label="coffee">☕️</span> {post_reading_time} min read.</small>
     );
+}
+
+PostSubtitle.propTypes = {
+    post_reading_time: PropTypes.number,
+    post_date: PropTypes.number,
 }

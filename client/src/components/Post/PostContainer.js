@@ -6,7 +6,7 @@ export default function PostContainer(props) {
     return (
         <header>
             <PostTitle {...props} />
-            <PostSubtitle />
+            <PostSubtitle {...props} />
         </header>
     );
 }

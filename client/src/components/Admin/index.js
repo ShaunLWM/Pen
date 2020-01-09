@@ -38,7 +38,7 @@ export default function EditorConvertToHTML() {
     const handleSubmitClick = async () => {
         if (currentTitle.length < 1) return setCurrentError("Title is blank");
         const body = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-        if (body.length < 8) return setCurrentError("Title is blank");
+        if (body.length < 8) return setCurrentError("Body is blank");
         setCurrentError("");
         try {
             await axios.post("http://localhost:3001/", { title: currentTitle, body });
