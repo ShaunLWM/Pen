@@ -36,6 +36,3 @@ function App() {
 }
 
 export default App;
-
-const serverUrl = "http://localhost:3001";
-export { serverUrl };

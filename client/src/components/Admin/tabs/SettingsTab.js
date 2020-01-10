@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { serverUrl } from "../../../config";
 
 export default function SettingsTab() {
     const [currentProfile, setCurrentProfile] = useState({
@@ -18,7 +19,7 @@ export default function SettingsTab() {
     useEffect(() => {
         async function fetchProfile() {
             try {
-                const results = await axios.get("http://localhost:3001/profile");
+                const results = await axios.get(`${serverUrl}/profile`);
                 setCurrentProfile(results.data);
                 setCurrentName(results.data["profile_name"]);
                 setCurrentDescription(results.data["profile_description"].join(""));
@@ -38,7 +39,7 @@ export default function SettingsTab() {
         setCurrentError("");
         const newProfile = Object.assign(currentProfile, { profile_name: currentName, profile_description: JSON.stringify(splitDescription) });
         try {
-            await axios.post("http://localhost:3001/profile", newProfile);
+            await axios.post(`${serverUrl}/profile`, newProfile);
             window.location.reload();
         } catch (error) {
             setCurrentError(error);

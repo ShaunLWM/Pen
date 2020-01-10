@@ -7,6 +7,7 @@ import draftToHtml from "draftjs-to-html";
 import React, { useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { serverUrl } from "../../../config";
 
 function uploadImageCallBack(file) {
     return new Promise(
@@ -41,7 +42,7 @@ export default function EditorTab() {
         if (body.length < 8) return setCurrentError("Body is blank");
         setCurrentError("");
         try {
-            await axios.post("http://localhost:3001/post", { title: currentTitle, body });
+            await axios.post(`${serverUrl}/post`, { title: currentTitle, body });
             window.location.reload();
         } catch (error) {
             setCurrentError(error);

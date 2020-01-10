@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { serverUrl } from "../App";
+import { serverUrl } from "../config";
 import CustomContentLoader from "../lib/CustomContentLoader";
 import { store } from "../store";
 import CollapsedPost from "./CollapsedPost";
