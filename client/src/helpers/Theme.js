@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = {
-    "palette": {
+    palette: {
         // "common": {
         //     "black": "#000",
         //     "white": "#fff"
@@ -34,7 +34,7 @@ const theme = {
         //     "disabled": "rgba(0, 0, 0, 0.38)",
         //     "hint": "rgba(0, 0, 0, 0.38)"
         // },
-        "type": "dark",
+        type: "dark",
     },
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import PropTypes from 'prop-types';
 import React, { createContext } from 'react';
 import { useImmerReducer } from "use-immer";
@@ -21,13 +22,13 @@ function reducerFunction(draft, action) {
             draft["lastUpdated"] = Math.floor(new Date().getTime() / 1000);
             break;
         case "nextPage":
-            draft["currentPage"] = draft["currentPage"] + 1;
+            draft["currentPage"] += 1;
             break;
         case "setProfile":
             draft["profile"] = action["data"];
             break;
         case "previousPage":
-            draft["currentPage"] = draft["currentPage"] - 1;
+            draft["currentPage"] -= 1;
             break;
         case "setTheme":
             draft["currentTheme"] = action["data"];
