@@ -26,7 +26,7 @@ export default function Header() {
       setLoading(false);
     }
 
-    if (typeof globalState["state"]["profile"]["img"] === "undefined") getProfile();
+    if (typeof globalState["state"]["profile"]["profile_image"] === "undefined") getProfile();
   }, [dispatch, globalState]);
 
   if (isLoading) return (<AvatarWithText />);

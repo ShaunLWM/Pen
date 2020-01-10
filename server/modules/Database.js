@@ -21,6 +21,7 @@ class Database {
         );
 
         CREATE TABLE IF NOT EXISTS profile (
+            profile_id INTEGER PRIMARY KEY,
             profile_name VARCHAR(50) NOT NULL,
             profile_image VARCHAR(50) NOT NULL,
             profile_description VARCHAR(50) NOT NULL
@@ -66,14 +67,19 @@ class Database {
     }
 
     getProfile() {
-        const stmt = this.db.prepare("SELECT * FROM profile");
-        return stmt.get();
+        const stmt = this.db.prepare("SELECT * FROM profile WHERE profile_id = ?");
+        return stmt.get(1);
     }
 
-    setProfile({ name, image, description }) {
+    setProfile({ profile_name = "", profile_image = "", profile_description = "" }) {
         const stmt = this.db.prepare("INSERT INTO profile (profile_name, profile_image, profile_description) VALUES (?, ?, ?)");
-        stmt.bind(name, image, description);
+        stmt.bind(profile_name, profile_image, profile_description);
         return stmt.run();
+    }
+
+    updateProfile({ profile_name = "", profile_image = "", profile_description = "" }) {
+        const stmt = this.db.prepare("UPDATE profile SET profile_name = ?, profile_image = ?, profile_description = ? WHERE profile_id = ?"); // old slug
+        return stmt.run(profile_name, profile_image, profile_description, 1);
     }
 }
 

@@ -7,7 +7,7 @@ export default function HeaderTitle() {
     const globalState = useContext(store);
     return (
         <Link to={`/`} component={RouterLink} style={{ textDecoration: 'none' }}>
-            <h1 className="header">{globalState["state"]["profile"]["name"]}</h1>
+            <h1 className="header">{globalState["state"]["profile"]["profile_name"]}</h1>
         </Link >
     );
 }

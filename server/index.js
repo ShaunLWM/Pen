@@ -9,6 +9,12 @@ const app = express();
 
 const Database = require("./modules/Database");
 
+const defaultProfile = {
+    profile_image: "",
+    profile_name: "",
+    profile_description: ["", ""],
+};
+
 app.use(bodyParser.json()); // <--- Here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -29,11 +35,18 @@ app.get("/page/:pageNumber", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
+    const profile = Database.getProfile();
+    if (typeof profile === "undefined") return res.status(200).json(defaultProfile);
     return res.status(200).json({
-        img: "/img/me.png",
-        name: "Shaun",
-        description: ["Personal blog by Shaun.", "I explain with words and code."],
+        ...profile,
+        profile_description: JSON.parse(profile["profile_description"]),
     });
+});
+
+app.post("/profile", (req, res) => {
+    const profile = Database.getProfile();
+    if (typeof profile === "undefined") { Database.setProfile(req.body); } else { Database.updateProfile(req.body); }
+    return res.status(200).json({ success: true });
 });
 
 app.get("/post/:slug", (req, res) => {
@@ -42,7 +55,7 @@ app.get("/post/:slug", (req, res) => {
     return res.status(200).json(results);
 });
 
-app.post("/", (req, res) => {
+app.post("/post", (req, res) => {
     if (typeof req["body"] === "undefined") return res.status(200).json({ success: false });
     Database.addPost({
         title: req["body"]["title"],
@@ -53,4 +66,5 @@ app.post("/", (req, res) => {
 });
 
 // eslint-disable-next-line no-undef
+// eslint-disable-next-line no-console
 app.listen(process.env.SERVER_PORT, () => console.log(`Example app listening on port ${process.env.SERVER_PORT}!`));

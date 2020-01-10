@@ -10,7 +10,7 @@ export default function HeaderProfile() {
     const [, toggleDarkMode] = useDarkMode();
 
     useEffect(() => {
-        const p = globalState["state"]["profile"]["description"].map((e) => `<span>${e}</span>`).join("<br />");
+        const p = globalState["state"]["profile"]["profile_description"].map((e) => `<span>${e}</span>`).join("<br />");
         setProfile(p);
     }, [globalState]);
 
@@ -18,7 +18,7 @@ export default function HeaderProfile() {
         <>
             <Grid container spacing={1}>
                 <Grid item xs={2}>
-                    <Avatar onClick={toggleDarkMode} alt="me!" src={globalState["state"]["profile"]["img"]} />
+                    <Avatar onClick={toggleDarkMode} alt="me!" src={globalState["state"]["profile"]["profile_image"]} />
                 </Grid>
                 <Grid item xs={10}>
                     <div dangerouslySetInnerHTML={{ __html: profile }} />
