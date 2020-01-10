@@ -37,7 +37,6 @@ export default function PostsList() {
         posts.map((post) => (
           <div key={post["post_id"]}>
             <CollapsedPost {...post} />
-            <hr style={{ marginTop: "10px" }} />
           </div>
         ))
       }
