@@ -53,9 +53,15 @@ export default function SettingsTab() {
         const splitDescription = currentDescription.split(".").map((v) => v.trim());
         if (splitDescription.length > 2) return setCurrentError("Description can only be 2 lines");
         setCurrentError("");
-        const newProfile = Object.assign(currentProfile, { profile_name: currentName, profile_description: JSON.stringify(splitDescription) });
+        const newProfile = Object.assign(currentProfile, { profile_name: currentName, profile_description: JSON.stringify(splitDescription), avatar: currentAvatarFile });
         try {
-            await axios.post(`${serverUrl}/profile`, newProfile);
+            const fd = new FormData();
+            Object.keys(newProfile).forEach((key) => fd.append(key, newProfile[key]));
+            await axios({
+                method: 'post',
+                url: `${serverUrl}/profile`,
+                data: fd,
+            });
             window.location.reload();
         } catch (error) {
             setCurrentError(error);

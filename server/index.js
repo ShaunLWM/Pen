@@ -2,10 +2,23 @@
 require("dotenv").config();
 
 const express = require("express");
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const multer = require("multer");
+const fs = require("fs");
 
 const app = express();
+const avatarUpload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb) {
+            cb(null, "public/img");
+        },
+        filename(req, file, cb) {
+            const ext = file.originalname.split(".").pop();
+            cb(null, `me.${ext}`);
+        },
+    }),
+});
 
 const Database = require("./modules/Database");
 
@@ -43,9 +56,17 @@ app.get("/profile", (req, res) => {
     });
 });
 
-app.post("/profile", (req, res) => {
+app.post("/profile", avatarUpload.single("avatar"), (req, res) => {
     const profile = Database.getProfile();
-    if (typeof profile === "undefined") { Database.setProfile(req.body); } else { Database.updateProfile(req.body); }
+    let body = Object.assign(defaultProfile, req.body);
+    if (typeof req.file !== "undefined") body = Object.assign(body, { profile_image: req.file.filename });
+    if (typeof profile === "undefined") {
+        Database.setProfile(body);
+    } else {
+        if (profile["profile_image"] !== req.file.filename) fs.unlinkSync(`public/img/${profile["profile_image"]}`);
+        Database.updateProfile(body);
+    }
+
     return res.status(200).json({ success: true });
 });
 
