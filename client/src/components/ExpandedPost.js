@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import Heart from "react-animated-heart";
 import { useHistory } from "react-router-dom";
 import { serverUrl } from "../config";
 import CustomContentLoader from "../lib/CustomContentLoader";
@@ -13,6 +14,7 @@ export default function ExpandedPost(props) {
     const [isLoading, setLoading] = useState(true);
     const [post, setPost] = useState(null);
     const [isError, setError] = useState(null);
+    const [isClick, setClick] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -50,6 +52,7 @@ export default function ExpandedPost(props) {
             <PostTitle shouldLink={false} {...post} />
             <PostSubtitle {...post} />
             <PostBody body={post["post_body"]} />
+            <Heart isClick={isClick} onClick={() => setClick(!isClick)} />
         </>
     );
 }
